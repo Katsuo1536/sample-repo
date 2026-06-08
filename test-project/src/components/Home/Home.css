@@ -1,0 +1,23 @@
+.list{
+    @apply text-2xl justify-between text-left
+}
+
+.main{
+    @apply flex justify-between mx-auto container items-center
+}
+
+.text{
+    @apply text-left items-center
+}
+
+.category{
+    @apply bg-gray-200 text-black rounded-2xl p-1 
+}
+
+.title{
+    @apply text-2xl
+}
+
+.content{
+    @apply line-clamp-2
+}
