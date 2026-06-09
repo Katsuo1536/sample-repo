@@ -1,16 +1,16 @@
 import { Fragment } from "react";
-import './Header.css';
+import styles from "./Header.module.css";
 
-export const Header = () =>{
-    
-return(
+export const Header = () => {
 
-    <header className="header">
-        <nav className="navigate">
-            <div className="blog">Blog</div>
-            <div className="inquiry">お問い合わせ</div>
-        </nav>
-    </header>
+    return (
+
+        <header className={styles.header}>
+            <nav className={styles.navigate}>
+                <div className={styles.blog}>Blog</div>
+                <div className={styles.inquiry}>お問い合わせ</div>
+            </nav>
+        </header>
 
     );
 };
