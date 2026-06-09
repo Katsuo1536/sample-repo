@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { posts } from "../../data/posts";
-import styles from "./Home.module.css";
 
 export const Home = () => {
 
@@ -18,24 +17,24 @@ export const Home = () => {
 
     return (
         <>
-            <span className={styles.list}>記事一覧</span>
+            <span className="text-2xl justify-between text-left">記事一覧</span>
             {
                 posts.map((elem) => (
                     <Fragment key={elem.id} >
-                        <main className={styles.main}>
+                        <main className="flex justify-between mx-auto container items-center">
                             <div >
                                 <img src={elem.thumbnailUrl} />
                             </div>
 
-                            <div className={styles.text}>
+                            <div className="text-left items-center">
                                 <time dateTime={elem.createdAt}>{time(elem.createdAt)}</time>
                                 <span>{elem.categories.map(category => (
-                                    <span className={styles.category} key={elem.id}>{category}</span>
+                                    <span className="bg-gray-200 text-black rounded-2xl p-1" key={elem.id}>{category}</span>
                                 ))}
                                 </span>
 
-                                <h6 className={styles.title}>{elem.title}</h6>
-                                <div className={styles.content} dangerouslySetInnerHTML={{ __html: elem.content }}></div>
+                                <h6 className="text-2xl">{elem.title}</h6>
+                                <div className="line-clamp-2" dangerouslySetInnerHTML={{ __html: elem.content }}></div>
                             </div>
                         </main>
 

@@ -1,14 +1,13 @@
 import { Fragment } from "react";
-import styles from "./Header.module.css";
 
 export const Header = () => {
 
     return (
 
-        <header className={styles.header}>
-            <nav className={styles.navigate}>
-                <div className={styles.blog}>Blog</div>
-                <div className={styles.inquiry}>お問い合わせ</div>
+        <header className="bg-taupe-950">
+            <nav className="flex justify-between mx-auto container items-center">
+                <div className="text-white text-2xl">Blog</div>
+                <div className="text-white">お問い合わせ</div>
             </nav>
         </header>
 
