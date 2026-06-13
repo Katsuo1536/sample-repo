@@ -1,19 +1,9 @@
 import { Fragment } from "react";
 import posts from "../../data/posts";
 import { Link, useParams } from 'react-router-dom';
+import { time } from "../../utils/time";
 
 export const Article = () => {
-
-  const time = (dateTime) => {
-    const date = new Date(dateTime);
-    const year = date.getFullYear().toString();
-    const month = (date.getMonth() + 1).toString();
-    const day = date.getDate().toString();
-
-    const dateText = year + '年' + month + '月' + day + '日';
-
-    return dateText;
-  };
 
   const { id } = useParams();
   const post = posts.find(post => post.id === parseInt(id));
@@ -22,10 +12,9 @@ export const Article = () => {
   return (
     <>
       {
-        <Link to="/Article/:id">
+        <Link to="/articles/:id">
           <Fragment key={post.id} >
-            <br />
-            <main className="mx-auto max-w-3xl px-4">
+            <main className="mx-auto max-w-3xl px-4 mt-3">
               <div>
                 <img className="items-center" src={post.thumbnailUrl} /><br />
               </div>
@@ -37,19 +26,13 @@ export const Article = () => {
                 ))}
                 </span>
 
-                <br />
-                <br />
 
-                <h6 className="text-3xl">{post.title}</h6>
+                <h6 className="text-3xl mt-2">{post.title}</h6>
 
-                <br />
-
-                <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+                <div className="my-3" dangerouslySetInnerHTML={{ __html: post.content }}></div>
               </div>
 
-              <br />
-              <br />
-              <Link to="/" className="text-blue-400">記事一覧へ戻る</Link>
+              <Link to="/" className="text-blue-400" >記事一覧へ戻る</Link>
             </main>
           </Fragment>
         </Link>

@@ -1,28 +1,17 @@
 import { Fragment } from "react";
 import { posts } from "../../data/posts";
 import { Link } from 'react-router-dom';
+import { time } from "../../utils/time";
 
 export const Home = () => {
 
-  const time = (dateTime) => {
-    const date = new Date(dateTime);
-    const year = date.getFullYear().toString();
-    const month = (date.getMonth() + 1).toString();
-    const day = date.getDate().toString();
-
-    const dateText = year + '年' + month + '月' + day + '日';
-
-    return dateText;
-  };
-
-
   return (
     <>
-      <span className="text-2xl justify-between text-left">記事一覧</span>
+      <span className="text-2xl justify-between text-left m-5">記事一覧</span>
       {
         posts.map((elem) => (
           <Fragment key={elem.id} >
-            <Link to={`Article/${elem.id}`}>
+            <Link to={`articles/${elem.id}`}>
               <main className="flex justify-between mx-auto container items-center">
                 <div >
                   <img src={elem.thumbnailUrl} />
@@ -41,9 +30,7 @@ export const Home = () => {
               </main>
             </Link>
 
-            <br />
-            <hr />
-            <br />
+            <hr className="m-3" />
 
           </Fragment>
         ))}
