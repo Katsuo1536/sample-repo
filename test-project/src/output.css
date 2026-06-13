@@ -13,6 +13,7 @@
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
+    --container-xl: 36rem;
     --container-2xl: 42rem;
     --container-3xl: 48rem;
     --container-4xl: 56rem;
@@ -211,6 +212,9 @@
   .m-15 {
     margin: calc(var(--spacing) * 15);
   }
+  .m-30 {
+    margin: calc(var(--spacing) * 30);
+  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -252,6 +256,9 @@
   }
   .max-w-5xl {
     max-width: var(--container-5xl);
+  }
+  .max-w-xl {
+    max-width: var(--container-xl);
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);

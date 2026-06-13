@@ -8,6 +8,7 @@ export const Article = () => {
   const { id } = useParams();
   const post = posts.find(post => post.id === parseInt(id));
 
+  if (!post) return <div className="mx-auto text-center mt-5">投稿が見つかりません</div>;
 
   return (
     <>

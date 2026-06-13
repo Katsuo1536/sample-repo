@@ -7,7 +7,7 @@ export const Home = () => {
 
   return (
     <>
-      <span className="text-2xl justify-between text-left m-5">記事一覧</span>
+      <span className="text-2xl justify-between text-left m-30">記事一覧</span>
       {
         posts.map((elem) => (
           <Fragment key={elem.id} >
