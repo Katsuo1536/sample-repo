@@ -1,9 +1,21 @@
-import { Fragment } from "react";
-import { posts } from "../../data/posts";
-import { Link } from 'react-router-dom';
+import { Fragment, useState, useEffect } from "react";
+// import { posts } from "../../data/posts";
+import { Link, useParams } from 'react-router-dom';
 import { time } from "../../utils/time";
 
 export const Home = () => {
+
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    const fetcher = async () => {
+      const res = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts")
+      const data = await res.json()
+      setPosts(data.posts)
+    }
+
+    fetcher()
+  }, [])
 
   return (
     <>
@@ -19,6 +31,7 @@ export const Home = () => {
 
                 <div className="text-left items-center">
                   <time dateTime={elem.createdAt}>{time(elem.createdAt)}</time>
+                  <>{console.log(elem.categories)}</>
                   <span>{elem.categories.map(category => (
                     <span className="bg-gray-200 text-black rounded-2xl p-1" key={elem.id}>{category}</span>
                   ))}
