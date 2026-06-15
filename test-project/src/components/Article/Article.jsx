@@ -7,22 +7,30 @@ export const Article = () => {
 
   const { id } = useParams();
 
-  const [post, setPost] = useState([])
+  const [post, setPost] = useState(null);
+  const [load, setLoad] = useState(true);
 
   useEffect(() => {
     const fetcher = async () => {
       const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${parseInt(id)}`)
       const data = await res.json()
       setPost(data.post)
-      console.log(post);
+      setLoad(!load)
+      // console.log(post);
     }
 
     fetcher()
   }, [])
 
-  if (!post) return <div className="mx-auto text-center mt-5">投稿が見つかりません</div>;
 
-  if (post.length === 0) return <div className="mx-auto text-center mt-5">投稿読み込み中！！！</div>;
+  if (load) {
+    return <div className="mx-auto text-center mt-5">投稿読み込み中！！！</div>
+  } else if (!post) {
+    return <div>
+      <div className="mx-auto text-center mt-5">投稿が見つかりません</div>
+      <Link to="/" className="mx-auto text-blue-400 text-0xl" >記事一覧へ戻る</Link>
+    </div>
+  };
 
 
   return (

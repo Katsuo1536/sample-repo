@@ -5,17 +5,26 @@ import { time } from "../../utils/time";
 
 export const Home = () => {
 
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
+  const [load, setLoad] = useState(true);
 
   useEffect(() => {
     const fetcher = async () => {
       const res = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts")
       const data = await res.json()
       setPosts(data.posts)
+      setLoad(!load)
     }
 
     fetcher()
   }, [])
+
+  if (load) {
+    return <div className="mx-auto text-center mt-5">記事読み込み中！！！</div>
+  } else if (!posts) {
+    return
+    <div className="mx-auto text-center mt-5">記事が見つかりません</div>
+  };
 
   return (
     <>
