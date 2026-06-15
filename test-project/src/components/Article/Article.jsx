@@ -1,14 +1,37 @@
-import { Fragment } from "react";
-import posts from "../../data/posts";
+import { Fragment, useState, useEffect } from "react";
+// import posts from "../../data/posts";
 import { Link, useParams } from 'react-router-dom';
 import { time } from "../../utils/time";
 
 export const Article = () => {
 
   const { id } = useParams();
-  const post = posts.find(post => post.id === parseInt(id));
 
-  if (!post) return <div className="mx-auto text-center mt-5">投稿が見つかりません</div>;
+  const [post, setPost] = useState(null);
+  const [load, setLoad] = useState(true);
+
+  useEffect(() => {
+    const fetcher = async () => {
+      const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${parseInt(id)}`)
+      const data = await res.json()
+      setPost(data.post)
+      setLoad(!load)
+      // console.log(post);
+    }
+
+    fetcher()
+  }, [])
+
+
+  if (load) {
+    return <div className="mx-auto text-center mt-5">投稿読み込み中！！！</div>
+  } else if (!post) {
+    return <div>
+      <div className="mx-auto text-center mt-5">投稿が見つかりません</div>
+      <Link to="/" className="mx-auto text-blue-400 text-0xl" >記事一覧へ戻る</Link>
+    </div>
+  };
+
 
   return (
     <>
@@ -22,8 +45,11 @@ export const Article = () => {
 
               <div className="text-left">
                 <time dateTime={post.createdAt}>{time(post.createdAt)}</time>
-                <span>{post.categories.map(category => (
-                  <span className="bg-gray-200 text-black rounded-2xl p-1" key={post.id}>{category}</span>
+
+
+
+                <span>{post.categories?.map(category => (
+                  <span className="bg-gray-200 text-black rounded-2xl p-1" >{category}</span>
                 ))}
                 </span>
 
