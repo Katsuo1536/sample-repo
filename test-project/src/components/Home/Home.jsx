@@ -21,7 +21,7 @@ export const Home = () => {
 
   if (load) {
     return <div className="mx-auto text-center mt-5">記事読み込み中！！！</div>
-  } else if (!posts) {
+  } else if (posts.length === 0) {
     return
     <div className="mx-auto text-center mt-5">記事が見つかりません</div>
   };
