@@ -7,9 +7,8 @@ import { useForm } from "react-hook-form";
 export const Form = () => {
 
   const [form, setFrom] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
 
-  const Submit = async () => {
+  const Submit = async (data) => {
 
     try {
       const res = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/contacts", {
@@ -18,38 +17,21 @@ export const Form = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: '',
-          email: '',
-          message: ''
+          name: data.name,
+          email: data.email,
+          message: data.message
         })
       })
 
       alert('送信しました。')
-      handleClear()
+      reset();
     }
     catch {
       alert('送信を失敗しました。')
-    } finally {
-      setIsSubmit(false)
-    }
+    } 
 
   }
 
-
-  const handleForm = e => {
-    setFrom({
-      ...form,
-      [e.target.name]: e.target.value
-    })
-  };
-
-  const handleClear = () => {
-    setFrom({
-      name: '',
-      email: '',
-      message: ''
-    });
-  };
 
   const defaultValues = {
     name: '',
@@ -61,7 +43,7 @@ export const Form = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({ defaultValues });
 
 
@@ -75,8 +57,6 @@ export const Form = () => {
       <div className="flex justify-center gap-35 mx-auto container items-center mt-10">
         <label htmlFor="name">お名前</label>
         <input className="border border-b-gray-700 rounded-2xl p-4 w-100"
-          type="text"
-          name="name"
           {...register('name', {
             required: 'お名前は必須です。',
             maxLength: {
@@ -84,23 +64,17 @@ export const Form = () => {
               message: 'お名前は30文字以内で入力してください。'
             }
           })}
-          onChange={handleForm}
-          value={form.name}
-          disabled={isSubmit} />
+          disabled={isSubmitting} />
       </div>
       <div className="flex justify-center mx-auto container items-center text-red-500">{errors.name?.message}</div>
 
       <div className="flex justify-center gap-20 mx-auto container items-center mt-5">
         <label htmlFor="email">メールアドレス</label>
         <input className="border border-b-gray-700 rounded-2xl mt-3 p-4 w-100"
-          name="email"
-          type="email"
           {...register('email', {
             required: 'メールアドレスは必須です。'
           })}
-          onChange={handleForm}
-          value={form.email}
-          disabled={isSubmit} />
+          disabled={isSubmitting} />
       </div>
       <div className="flex justify-center mx-auto container items-center text-red-500">{errors.email?.message}</div>
 
@@ -109,7 +83,6 @@ export const Form = () => {
         <label htmlFor="message">本文</label>
         <textarea
           className="border border-gray-700 rounded-2xl mt-10 p-4 w-100"
-          name="message"
           color="30" rows="7"
           {...register('message', {
             required: '本文は必須です。',
@@ -118,17 +91,15 @@ export const Form = () => {
               message: '本文は、500字以内で入力してください。'
             }
           })}
-          value={form.message}
-          onChange={handleForm}
-          disabled={isSubmit}/>
+          disabled={isSubmitting} />
       </div>
       <div className="flex justify-center mx-auto container items-center text-red-500">{errors.message?.message}</div>
 
 
       <div className="flex justify-center gap-10 mx-auto container items-center mt-20">
-        <button className="bg-gray-950 text-mist-50 rounded-2xl font-bold p-3" type="submit" disabled={isSubmit}>
+        <button className="bg-gray-950 text-mist-50 rounded-2xl font-bold p-3" type="submit" disabled={isSubmitting}>
           送信</button>
-        <button className="bg-gray-300 text-mist-900 rounded-2xl font-bold p-3" type="button" onClick={handleClear} disabled={isSubmit}>
+        <button className="bg-gray-300 text-mist-900 rounded-2xl font-bold p-3" type="reset" disabled={isSubmitting}>
           クリア</button>
       </div>
 
