@@ -1,12 +1,9 @@
-import { Fragment, useState, useEffect } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { Fragment} from "react";
 import { useForm } from "react-hook-form";
 
 
 
 export const Form = () => {
-
-  const [form, setFrom] = useState({});
 
   const Submit = async (data) => {
 
